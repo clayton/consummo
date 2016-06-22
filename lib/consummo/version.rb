@@ -1,3 +1,3 @@
 module Consummo
-  VERSION = "0.1.0"
+  VERSION = "0.4.4"
 end

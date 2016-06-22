@@ -1,11 +1,70 @@
 # Consummo
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/consummo`. To experiment with that code, run `bin/console` for an interactive prompt.
+Consummo is an engine for consuming, enriching and producing pieces of content from RSS feeds.
 
-TODO: Delete this and the text above, and describe your gem
+## Quick Start
+
+```ruby
+
+  # Create a Feed
+  feed = Feed.new(uri: "http://feedjira.com/blog/feed.xml")
+
+  # Produce Items from the feed
+  items = ItemProducer.new(feeds: [feed]).produce
+  # items => [SimpleItem, SimpleItem, SimpleItem]
+
+  # define our content enrichers
+  enrichers = [FacebookLikeEnricher.new]
+
+  # Consume items
+  enriched_items = ItemConsumer.new(items: items, enrichers: enrichers).consume
+  # enriched_items => [SimpleItem, SimpleItem, SimpleItem]
+
+```
+
+## Using with Rails
+
+If you're using consummo with rails, you'll probably want to create `ActiveRecord` backed objects for:
+
+- `FeedItem`
+- `Feed`
+
+When producing and consuming `FeedItems` you'll probably want to persist them to a datastore when producing and/or consuming.
+
+## The Consummo Domain
+
+### Feeds
+A `Feed` is a simple data structure that represents a URI feed. It has a `uri` attribute.
+
+### Feed Items
+A `Feed Item` represents a singular piece of content produced from a `Feed`. It has attributes like `title` and `url`.
+
+### Producers
+An `Item Producer` takes a list of `Feeds` along with a `Fetcher` and fetches items from the feed.
+
+### Consumers
+An `Item Consumer` takes unenriched `Feed Items` and passes them through `Item Enrichers`.
+
+### Item Enricher
+An `Item Enricher` enriches the details and data from a `Feed Item`. For example, the `FacebookLikeEnricher` will determine the number of Facebook Likes for a particular `Feed Item` (using the item's url) and add that attribute to the `Feed Item`.
+
+The intent of `Item Enrichers` is that they are extensible and easy to implement such that multiple custom enrichments are possible.
+
+## Custom Enrichment
+
+Enrichers follow a very simple interface:
+
+```ruby
+  class SimpleEnricher
+    def enrich(item)
+      { "simple" => "enrichment" }
+    end
+  end
+```
+
+An Enricher should be able to `enrich` something that looks like an `item` (`SimpleItem`) and return a hash of key/value pairs.
 
 ## Installation
-
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -38,4 +97,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
