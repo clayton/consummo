@@ -58,6 +58,23 @@ An `Item Enricher` enriches the details and data from a `Feed Item`. For example
 
 The intent of `Item Enrichers` is that they are extensible and easy to implement such that multiple custom enrichments are possible.
 
+## Existing Enrichers
+
+### Working
+
+| Name           | Description                                                                                                                        | Class                  |
+|:---------------|:-----------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
+| Facebook Likes | Enriches the item with the current number of Facebook likes based on the items's `URI`                                             | `FacebookLikeEnricher` |
+| Readability    | Enriches the item with the [Flesch–Kincaid readability test](https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests) score | `ReadabilityEnricher`  |
+| URL            | Enriches the item with the true final URI by following all redirects                                                               | `UrlEnricher`          |
+| Keyword Hint   | Enriches the item by wrapping any discovered keywords (passed in to the enrichment) with `<strong>` tags                           | `KeywordHintEnricher`  |
+
+### In Need of Updates
+
+| Name           | Description                                                 | Class                  | Needs                                    |
+|:---------------|:------------------------------------------------------------|:-----------------------|:-----------------------------------------|
+| Twitter Shares | Enriches the item with the current number of twitter shares | `TwitterShareEnricher` | Update to work with the Twitter v1.1 API |
+
 ## Custom Enrichment
 
 Enrichers follow a very simple interface:
