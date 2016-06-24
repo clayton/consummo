@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe 'FeedFetcher' do
   it 'should use an http client' do
-    feed = Feed.new(uri: "http://example.com/rss")
-    client = DummyFeedClient.new
+    feed = Consummo::Feed.new(uri: "http://example.com/rss")
+    client = Consummo::DummyFeedClient.new
     expect(client).to receive(:fetch_and_parse).with("http://example.com/rss") {[]}
-    FeedFetcher.new(client: client).fetch(feed)
+    Consummo::FeedFetcher.new(client: client).fetch(feed)
   end
 
   context 'Fetching Items' do
@@ -15,26 +15,26 @@ describe 'FeedFetcher' do
     end
     context "when the feed has a valid uri" do
       it 'should tell the ItemFactory to build items from entries' do
-        feed   = Feed.new(uri: "http://example.com/rss")
-        entry  = DummyRssEntry.new
-        client = StubbedFeedClient.new([entry])
-        item_factory = FeedItemFactory.new
-        expect(item_factory).to receive(:build).with(entry) {SimpleItem.new}
-        results = FeedFetcher.new(client: client, factory: item_factory).fetch(feed)
+        feed   = Consummo::Feed.new(uri: "http://example.com/rss")
+        entry  = Consummo::DummyRssEntry.new
+        client = Consummo::StubbedFeedClient.new([entry])
+        item_factory = Consummo::FeedItemFactory.new
+        expect(item_factory).to receive(:build).with(entry) {Consummo::SimpleItem.new}
+        results = Consummo::FeedFetcher.new(client: client, factory: item_factory).fetch(feed)
       end
 
       context 'when the feed has already been fetched once' do
         before(:each) do
           @stub_items = [
-            DummyRssEntry.new(last_modified: Time.parse('3000-07-24 15:00:02 UTC')),
-            DummyRssEntry.new(last_modified: Time.parse('2000-07-24 15:00:02 UTC')),
-            DummyRssEntry.new(last_modified: Time.parse('1000-07-24 15:00:02 UTC'))
+            Consummo::DummyRssEntry.new(last_modified: Time.parse('3000-07-24 15:00:02 UTC')),
+            Consummo::DummyRssEntry.new(last_modified: Time.parse('2000-07-24 15:00:02 UTC')),
+            Consummo::DummyRssEntry.new(last_modified: Time.parse('1000-07-24 15:00:02 UTC'))
           ]
         end
         it 'should reject known items' do
-          feed   = Feed.new(uri: "http://example.com/rss", id: 1999)
-          client = StubbedFeedClient.new(@stub_items)
-          results = FeedFetcher.new(client: client).fetch(feed, Time.now)
+          feed   = Consummo::Feed.new(uri: "http://example.com/rss", id: 1999)
+          client = Consummo::StubbedFeedClient.new(@stub_items)
+          results = Consummo::FeedFetcher.new(client: client).fetch(feed, Time.now)
           expect(results.size).to eq 1
         end
       end
@@ -42,7 +42,7 @@ describe 'FeedFetcher' do
   end
 end
 
-class DummyFeedClient < FeedClient
+class Consummo::DummyFeedClient < Consummo::FeedClient
   def fetch_and_parse(uri)
     []
   end
@@ -52,7 +52,7 @@ class DummyFeedClient < FeedClient
   end
 end
 
-class StubbedFeedClient < FeedClient
+class Consummo::StubbedFeedClient < Consummo::FeedClient
   def initialize(stub=nil)
     @stub = stub || [Feedjira::Parser::AtomEntry.new, Feedjira::Parser::AtomEntry.new]
   end
@@ -61,6 +61,6 @@ class StubbedFeedClient < FeedClient
   end
 end
 
-class DummyRssEntry < Feedjira::Parser::AtomEntry
+class Consummo::DummyRssEntry < Feedjira::Parser::AtomEntry
   attr_accessor :last_modified
 end
