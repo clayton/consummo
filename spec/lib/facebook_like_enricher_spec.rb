@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'FacebookLikeEnricher' do
   before do
-    @sut = FacebookLikeEnricher.new
+    @sut = Consummo::FacebookLikeEnricher.new
   end
 
   it 'should have the correct metric endpoint' do
