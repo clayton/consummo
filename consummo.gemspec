@@ -20,14 +20,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "feedjira", "~> 2.0"
-  spec.add_runtime_dependency "activesupport", "~> 4"
-  spec.add_runtime_dependency "odyssey", "~> 0.2"
-  spec.add_runtime_dependency "httparty", "~> 0.13"
+  spec.add_runtime_dependency "activesupport", "~> 6"
+  spec.add_runtime_dependency "odyssey"
+  spec.add_runtime_dependency "httparty"
 
-  spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "vcr", "~> 3.0"
-  spec.add_development_dependency "simplecov", "~> 0.9"
-  spec.add_development_dependency "codeclimate-test-reporter", "~> 0.5"
+  spec.add_development_dependency "bundler", "~> 2"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "simplecov"
 end
