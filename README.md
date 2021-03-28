@@ -2,8 +2,8 @@
 
 [![Build Status](http://img.shields.io/travis/clayton/consummo.svg?style=flat-square)](https://travis-ci.org/clayton/consummo)
 [![Dependency Status](http://img.shields.io/gemnasium/clayton/consummo.svg?style=flat-square)](https://gemnasium.com/clayton/consummo)
-[![Code Climate](http://img.shields.io/codeclimate/github/clayton/consummo.svg?style=flat-square)](https://codeclimate.com/github/clayton/consummo)
-[![Test Coverage](https://codeclimate.com/github/clayton/consummo/badges/coverage.svg)](https://codeclimate.com/github/clayton/consummo/coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f349bb9e6b2fd0add731/maintainability)](https://codeclimate.com/github/clayton/consummo/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f349bb9e6b2fd0add731/test_coverage)](https://codeclimate.com/github/clayton/consummo/test_coverage)
 [![Issue Count](https://codeclimate.com/github/clayton/consummo/badges/issue_count.svg)](https://codeclimate.com/github/clayton/consummo)
 [![Gem Version](http://img.shields.io/gem/v/consummo.svg?style=flat-square)](https://rubygems.org/gems/consummo)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://clayton.mit-license.org)
