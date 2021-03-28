@@ -5,7 +5,7 @@ module Consummo
     def resolve(url)
       return url if url.blank?
       begin
-        response = HTTParty.head(url, follow_redirects: true)
+        response = HTTParty.get(url, follow_redirects: true)
         response.request.last_uri
       rescue Errno::ECONNREFUSED, URI::InvalidURIError, HTTParty::RedirectionTooDeep
         url
